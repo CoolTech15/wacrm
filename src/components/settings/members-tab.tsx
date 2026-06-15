@@ -99,23 +99,22 @@ const ROLE_CHIP: Record<
   owner: {
     icon: Crown,
     label: 'Owner',
-    className:
-      'border-amber-500/40 bg-amber-500/10 text-amber-300',
+    className: 'border-amber-200 bg-amber-50 text-amber-700',
   },
   admin: {
     icon: Shield,
     label: 'Admin',
-    className: 'border-primary/40 bg-primary/10 text-primary',
+    className: 'border-indigo-200 bg-indigo-50 text-indigo-700',
   },
   agent: {
     icon: UserCog,
     label: 'Agent',
-    className: 'border-slate-700 bg-slate-800 text-slate-300',
+    className: 'border-slate-200 bg-slate-50 text-slate-700',
   },
   viewer: {
     icon: UserIcon,
     label: 'Viewer',
-    className: 'border-slate-800 bg-slate-900 text-slate-500',
+    className: 'border-slate-200 bg-slate-100/60 text-slate-500',
   },
 };
 
@@ -296,8 +295,8 @@ export function MembersTab() {
       {/* Header + invite button */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-semibold text-white">Account members</h2>
-          <p className="text-sm text-slate-400">
+          <h2 className="text-lg font-semibold text-slate-900">Account members</h2>
+          <p className="text-sm text-slate-500 mt-1">
             People with access to this account. Roles control what each
             teammate can do.
           </p>
@@ -305,7 +304,7 @@ export function MembersTab() {
         <RequireRole min="admin">
           <Button
             onClick={() => setInviteOpen(true)}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground"
+            className="bg-primary hover:bg-primary-hover text-white font-medium shadow-xs"
           >
             <Plus className="size-4" />
             Invite member
@@ -314,9 +313,9 @@ export function MembersTab() {
       </div>
 
       {/* Roster */}
-      <Card className="bg-slate-900 border-slate-700 ring-0 ring-transparent">
-        <CardContent className="p-0">
-          <ul className="divide-y divide-slate-800">
+      <Card className="bg-white border-slate-200 shadow-sm rounded-xl overflow-hidden">
+        <CardContent className="p-0 bg-white">
+          <ul className="divide-y divide-slate-100">
             {members.map((member) => {
               const roleMeta = ROLE_CHIP[member.role];
               const RoleIcon = roleMeta.icon;
@@ -332,7 +331,7 @@ export function MembersTab() {
                   // 128px width doesn't force the name into a 50-pixel
                   // truncation. Desktop (sm+): everything inline as
                   // before.
-                  className="flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:gap-4"
+                  className="flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:gap-4 bg-white"
                 >
                   <div className="flex min-w-0 flex-1 items-center gap-4">
                     <Avatar className="size-9 shrink-0">
@@ -342,20 +341,20 @@ export function MembersTab() {
                           alt={member.full_name || 'Member'}
                         />
                       ) : null}
-                      <AvatarFallback className="bg-primary/10 text-sm font-medium text-primary">
+                      <AvatarFallback className="bg-indigo-50 text-sm font-medium text-indigo-600">
                         {(member.full_name || member.email || 'U')
                           .charAt(0)
                           .toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-
+ 
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="truncate text-sm font-medium text-white">
+                        <span className="truncate text-sm font-medium text-slate-900">
                           {member.full_name || 'Unnamed'}
                         </span>
                         {isSelf && (
-                          <Badge className="bg-slate-800 text-slate-300 border-slate-700 text-[10px] uppercase tracking-wide">
+                          <Badge className="bg-slate-100 text-slate-700 border-slate-200 text-[10px] uppercase tracking-wide">
                             You
                           </Badge>
                         )}
@@ -394,14 +393,14 @@ export function MembersTab() {
                         }
                       >
                         <SelectTrigger
-                          className="w-32 bg-slate-800 border-slate-700 text-slate-200"
+                          className="w-32 bg-white border-slate-200 text-slate-700 hover:bg-slate-50 cursor-pointer shadow-xs"
                           disabled={isBusy}
                         >
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="border-slate-200 bg-white">
                           {EDITABLE_ROLES.map((r) => (
-                            <SelectItem key={r.value} value={r.value}>
+                            <SelectItem key={r.value} value={r.value} className="text-slate-700 hover:bg-slate-50 cursor-pointer">
                               {r.label}
                             </SelectItem>
                           ))}
@@ -429,7 +428,7 @@ export function MembersTab() {
                         size="sm"
                         onClick={() => setRemovingMember(member)}
                         disabled={isBusy}
-                        className="border-red-500/40 bg-red-500/10 text-red-300 hover:bg-red-500/20 hover:border-red-500/60 hover:text-red-200"
+                        className="border-rose-200 bg-rose-50 text-rose-600 hover:bg-rose-100 hover:border-rose-300 hover:text-rose-700"
                       >
                         <Trash2 className="size-4" />
                       </Button>
@@ -447,10 +446,10 @@ export function MembersTab() {
         <div>
           <div className="mb-2 flex items-center gap-2">
             <UsersRound className="size-4 text-slate-400" />
-            <h3 className="text-sm font-semibold text-white">
+            <h3 className="text-sm font-semibold text-slate-900">
               Pending invitations
             </h3>
-            <Badge className="bg-slate-800 text-slate-400 border-slate-700">
+            <Badge className="bg-slate-100 text-slate-600 border-slate-200">
               {invitations.length}
             </Badge>
           </div>
@@ -468,33 +467,33 @@ export function MembersTab() {
           ) : null}
 
           {invitations.length === 0 ? (
-            <Card className="bg-slate-900 border-slate-700 ring-0 ring-transparent">
-              <CardContent className="flex flex-col items-center justify-center py-8 text-center">
-                <Mail className="size-6 text-slate-600" />
-                <p className="mt-2 text-sm text-slate-400">
+            <Card className="bg-white border-slate-200 shadow-sm rounded-xl overflow-hidden">
+              <CardContent className="flex flex-col items-center justify-center py-8 text-center bg-white">
+                <Mail className="size-6 text-slate-400" />
+                <p className="mt-2 text-sm text-slate-500">
                   No pending invitations.
                 </p>
-                <p className="mt-1 text-xs text-slate-500">
-                  Click <span className="text-slate-300">Invite member</span>{' '}
+                <p className="mt-1 text-xs text-slate-400">
+                  Click <span className="text-slate-700 font-medium">Invite member</span>{' '}
                   above to generate a shareable link.
                 </p>
               </CardContent>
             </Card>
           ) : (
-            <Card className="bg-slate-900 border-slate-700 ring-0 ring-transparent">
-              <CardContent className="p-0">
-                <ul className="divide-y divide-slate-800">
+            <Card className="bg-white border-slate-200 shadow-sm rounded-xl overflow-hidden">
+              <CardContent className="p-0 bg-white">
+                <ul className="divide-y divide-slate-100">
                   {invitations.map((inv) => {
                     const inviteRoleMeta = ROLE_CHIP[inv.role];
                     const InviteRoleIcon = inviteRoleMeta.icon;
                     return (
                     <li
                       key={inv.id}
-                      className="flex items-center gap-4 px-4 py-3"
+                      className="flex items-center gap-4 px-4 py-3 bg-white"
                     >
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium text-white">
+                          <span className="text-sm font-medium text-slate-900">
                             {inv.label || 'Untitled invite'}
                           </span>
                           <span
@@ -517,7 +516,7 @@ export function MembersTab() {
                         variant="outline"
                         size="sm"
                         onClick={() => handleRevoke(inv)}
-                        className="border-red-500/40 bg-red-500/10 text-red-300 hover:bg-red-500/20 hover:border-red-500/60 hover:text-red-200"
+                        className="border-rose-200 bg-rose-50 text-rose-600 hover:bg-rose-100 hover:border-rose-300 hover:text-rose-700"
                       >
                         <MailX className="size-4" />
                         Revoke
@@ -544,15 +543,15 @@ export function MembersTab() {
           if (!open) setRemovingMember(null);
         }}
       >
-        <DialogContent className="bg-slate-900 border-slate-700 sm:max-w-sm">
+        <DialogContent className="bg-white border-slate-200 sm:max-w-sm text-slate-900">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-white">
-              <AlertTriangle className="size-4 text-amber-400" />
+            <DialogTitle className="flex items-center gap-2 text-slate-900 font-semibold">
+              <AlertTriangle className="size-4 text-amber-500" />
               Remove member
             </DialogTitle>
-            <DialogDescription className="text-slate-400">
+            <DialogDescription className="text-slate-500">
               Remove{' '}
-              <span className="font-medium text-slate-300">
+              <span className="font-semibold text-slate-900">
                 {removingMember?.full_name || 'this teammate'}
               </span>{' '}
               from the account? They&apos;ll be signed out of this account
@@ -560,18 +559,18 @@ export function MembersTab() {
               login isn&apos;t deleted.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="bg-slate-900 border-slate-700">
+          <DialogFooter className="bg-slate-50 border-t border-slate-100 p-4 -mx-6 -mb-6 rounded-b-lg flex gap-2 justify-end">
             <Button
               variant="outline"
               onClick={() => setRemovingMember(null)}
-              className="border-slate-700 text-slate-300 hover:bg-slate-800"
+              className="border-slate-200 text-slate-700 hover:bg-slate-50 bg-white"
             >
               Cancel
             </Button>
             <Button
               onClick={handleRemove}
               disabled={!!pendingMemberAction}
-              className="bg-red-600 hover:bg-red-700 text-white"
+              className="bg-rose-600 hover:bg-rose-700 text-white font-medium shadow-xs"
             >
               {pendingMemberAction ? (
                 <>

@@ -210,10 +210,10 @@ export function ProfileForm() {
     : '—';
 
   return (
-    <Card className="bg-slate-900/40 border-slate-800">
+    <Card className="bg-white border-slate-200 shadow-sm rounded-xl">
       <CardHeader>
-        <CardTitle className="text-white">Profile</CardTitle>
-        <CardDescription className="text-slate-400">
+        <CardTitle className="text-slate-900 font-semibold">Profile</CardTitle>
+        <CardDescription className="text-slate-500">
           How you show up across the app. Your avatar and name appear in the
           header, sidebar, and anywhere your teammates see you.
         </CardDescription>
@@ -227,7 +227,7 @@ export function ProfileForm() {
               {currentAvatar ? (
                 <AvatarImage src={currentAvatar} alt={fullName || 'Avatar'} />
               ) : null}
-              <AvatarFallback className="bg-primary/10 text-base text-primary">
+              <AvatarFallback className="bg-primary-soft text-base text-primary font-semibold">
                 {initial}
               </AvatarFallback>
             </Avatar>
@@ -245,6 +245,7 @@ export function ProfileForm() {
                 variant="outline"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={saving}
+                className="border-slate-200 text-slate-700 hover:bg-slate-50 bg-white shadow-xs"
               >
                 <Upload className="size-4" />
                 {currentAvatar ? 'Change photo' : 'Upload photo'}
@@ -255,7 +256,7 @@ export function ProfileForm() {
                   variant="ghost"
                   onClick={onRemoveAvatar}
                   disabled={saving}
-                  className="text-slate-400 hover:text-white"
+                  className="text-slate-500 hover:text-rose-600 hover:bg-rose-50"
                 >
                   <Trash2 className="size-4" />
                   Remove
@@ -269,7 +270,7 @@ export function ProfileForm() {
 
           {/* Name */}
           <div className="space-y-2">
-            <Label htmlFor="profile-full-name" className="text-slate-200">
+            <Label htmlFor="profile-full-name" className="text-slate-700 font-semibold">
               Display name
             </Label>
             <Input
@@ -280,12 +281,13 @@ export function ProfileForm() {
               maxLength={120}
               disabled={saving}
               required
+              className="bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-primary/20"
             />
           </div>
 
           {/* Email */}
           <div className="space-y-2">
-            <Label htmlFor="profile-email" className="text-slate-200">
+            <Label htmlFor="profile-email" className="text-slate-700 font-semibold">
               Email
             </Label>
             <Input
@@ -295,9 +297,10 @@ export function ProfileForm() {
               onChange={(e) => setEmail(e.target.value)}
               disabled={saving}
               required
+              className="bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-primary/20"
             />
             {emailChangePending && (
-              <p className="flex items-start gap-2 rounded-md border border-amber-500/30 bg-amber-500/5 px-3 py-2 text-xs text-amber-300">
+              <p className="flex items-start gap-2 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
                 <Mail className="mt-0.5 size-3.5 shrink-0" />
                 <span>
                   Check the inbox for <strong>{profile?.email}</strong> and{' '}
@@ -309,24 +312,24 @@ export function ProfileForm() {
           </div>
 
           {/* Read-only block */}
-          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
+          <div className="rounded-lg border border-slate-100 bg-slate-50/70 p-4">
             <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
               Account details
             </p>
             <dl className="grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
               <div>
                 <dt className="text-slate-500">Role</dt>
-                <dd className="mt-0.5 font-mono text-slate-200">
+                <dd className="mt-0.5 font-mono text-slate-800 font-semibold">
                   {profile?.role ?? 'user'}
                 </dd>
               </div>
               <div>
                 <dt className="text-slate-500">Joined</dt>
-                <dd className="mt-0.5 text-slate-200">{joined}</dd>
+                <dd className="mt-0.5 text-slate-800 font-semibold">{joined}</dd>
               </div>
               <div className="sm:col-span-2">
                 <dt className="text-slate-500">User ID</dt>
-                <dd className="mt-0.5 break-all font-mono text-xs text-slate-400">
+                <dd className="mt-0.5 break-all font-mono text-xs text-slate-600">
                   {user?.id ?? '—'}
                 </dd>
               </div>
@@ -334,14 +337,14 @@ export function ProfileForm() {
           </div>
 
           {!profile && (
-            <p className="flex items-center gap-2 text-sm text-slate-400">
-              <CircleAlert className="size-4" />
+            <p className="flex items-center gap-2 text-sm text-slate-500">
+              <CircleAlert className="size-4 text-slate-400" />
               Loading your profile…
             </p>
           )}
 
           <div className="flex justify-end">
-            <Button type="submit" disabled={saving || !dirty || !profile}>
+            <Button type="submit" disabled={saving || !dirty || !profile} className="bg-primary hover:bg-primary-hover text-white font-medium shadow-xs">
               {saving ? (
                 <>
                   <Loader2 className="size-4 animate-spin" />

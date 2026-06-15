@@ -57,7 +57,7 @@ export function EditorHeader() {
         <button
           type="button"
           onClick={() => router.push("/flows")}
-          className="inline-flex items-center gap-1 hover:text-slate-300"
+          className="inline-flex items-center gap-1 hover:text-slate-700 transition-colors"
         >
           <ArrowLeft className="h-3 w-3" />
           Flows
@@ -72,16 +72,16 @@ export function EditorHeader() {
               setState((s) => ({ ...s, name: e.target.value }))
             }
             placeholder="Flow name"
-            className="max-w-md bg-slate-900 text-lg font-semibold"
+            className="max-w-md bg-white text-lg font-semibold border-slate-200 text-slate-900 placeholder:text-slate-400"
           />
           <StatusBadge status={state.status} />
           {dirty && (
             <span
-              className="inline-flex shrink-0 items-center gap-1 text-[10px] font-medium uppercase tracking-wide text-amber-300"
+              className="inline-flex shrink-0 items-center gap-1 text-[10px] font-medium uppercase tracking-wide text-amber-600"
               title="Unsaved changes — hit Save to persist"
               aria-live="polite"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
               Edited
             </span>
           )}
@@ -91,6 +91,7 @@ export function EditorHeader() {
             variant="ghost"
             size="sm"
             onClick={() => router.push(`/flows/${flow.id}/runs`)}
+            className="text-slate-600 hover:text-slate-900 hover:bg-slate-100"
           >
             <History className="h-3.5 w-3.5" />
             Runs
@@ -99,7 +100,7 @@ export function EditorHeader() {
             variant="ghost"
             size="sm"
             onClick={() => void deleteFlow()}
-            className="text-red-400 hover:bg-red-500/10 hover:text-red-300"
+            className="text-red-500 hover:bg-red-50 hover:text-red-600"
           >
             <Trash2 className="h-3.5 w-3.5" />
             Delete
@@ -110,6 +111,7 @@ export function EditorHeader() {
               size="sm"
               onClick={() => void setStatus("draft")}
               disabled={activating}
+              className="border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
             >
               {activating ? (
                 <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -129,6 +131,7 @@ export function EditorHeader() {
                   ? "Fix the issues below before activating"
                   : undefined
               }
+              className="border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
             >
               {activating ? (
                 <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -154,7 +157,7 @@ export function EditorHeader() {
           setState((s) => ({ ...s, description: e.target.value }))
         }
         placeholder="Optional description (internal — customers don't see this)"
-        className="bg-slate-900 text-sm"
+        className="bg-white border-slate-200 text-slate-700 text-sm placeholder:text-slate-400"
       />
     </div>
   );
@@ -162,9 +165,9 @@ export function EditorHeader() {
 
 function StatusBadge({ status }: { status: BuilderState["status"] }) {
   const cls = {
-    draft: "border-slate-700 bg-slate-800 text-slate-300",
-    active: "border-emerald-600/40 bg-emerald-500/10 text-emerald-300",
-    archived: "border-slate-700 bg-slate-800/50 text-slate-500",
+    draft: "border-slate-300 bg-slate-100 text-slate-600",
+    active: "border-emerald-300 bg-emerald-50 text-emerald-700",
+    archived: "border-slate-200 bg-slate-50 text-slate-400",
   }[status];
   return (
     <Badge variant="outline" className={cn("shrink-0", cls)}>

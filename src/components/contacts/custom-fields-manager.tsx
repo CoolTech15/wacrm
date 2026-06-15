@@ -33,10 +33,10 @@ export function CustomFieldsManager({
 }: CustomFieldsManagerProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="border-slate-700 bg-slate-900 text-slate-200 sm:max-w-md">
+      <DialogContent className="bg-white border-slate-200 text-slate-900 sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-white">Custom fields</DialogTitle>
-          <DialogDescription className="text-slate-400">
+          <DialogTitle className="text-slate-950 font-bold">Custom fields</DialogTitle>
+          <DialogDescription className="text-slate-500">
             Define extra contact fields (e.g. ZIP code, lead source). They
             appear on every contact and in the “Update Contact Field” automation
             action.
@@ -185,12 +185,12 @@ export function CustomFieldsPanel() {
             }
           }}
           placeholder="New field name…"
-          className="bg-slate-800 text-white"
+          className="bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-indigo-500"
         />
         <Button
           onClick={handleCreate}
           disabled={creating || !newName.trim()}
-          className="bg-primary hover:bg-primary/90 text-primary-foreground shrink-0"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-xs shrink-0"
         >
           {creating ? (
             <Loader2 className="size-4 animate-spin" />
@@ -202,7 +202,7 @@ export function CustomFieldsPanel() {
       </div>
 
       {/* List */}
-      <div className="max-h-72 overflow-y-auto rounded-md border border-slate-800">
+      <div className="max-h-72 overflow-y-auto rounded-md border border-slate-200 bg-white shadow-xs">
         {loading ? (
           <div className="flex items-center justify-center gap-2 py-8 text-sm text-slate-500">
             <Loader2 className="size-4 animate-spin" />
@@ -213,7 +213,7 @@ export function CustomFieldsPanel() {
             No custom fields yet.
           </p>
         ) : (
-          <ul className="divide-y divide-slate-800">
+          <ul className="divide-y divide-slate-100">
             {fields.map((field) => (
               <FieldRow
                 key={field.id}
@@ -265,7 +265,7 @@ function FieldRow({
           if (e.key === 'Enter') e.currentTarget.blur();
         }}
         aria-label={`Rename ${field.field_name}`}
-        className="focus:border-primary h-8 border-transparent bg-transparent text-white hover:border-slate-700"
+        className="focus:border-indigo-500 h-8 border-transparent bg-transparent text-slate-900 hover:border-slate-200 focus:bg-white px-2 rounded"
       />
       <Button
         variant="ghost"
@@ -273,7 +273,7 @@ function FieldRow({
         disabled={busy}
         onClick={() => onDelete(field)}
         title="Delete field"
-        className="shrink-0 text-slate-400 hover:text-red-400"
+        className="shrink-0 text-slate-400 hover:text-red-600 hover:bg-red-50 border border-transparent hover:border-slate-200 rounded-md p-1"
       >
         {busy ? (
           <Loader2 className="size-4 animate-spin" />

@@ -13,10 +13,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "wacrm",
-    template: "%s — wacrm",
+    default: "IndexNode CRM",
+    template: "%s — IndexNode CRM",
   },
-  description: "Self-hostable CRM template for WhatsApp.",
+  description: "IndexNode CRM.",
   robots: {
     index: false,
     follow: false,
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#020617",
-  colorScheme: "dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
 };
 
 // Inline boot script — runs before React hydrates so the user's
@@ -89,13 +89,13 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
           <Toaster
-            theme="dark"
+            theme="light"
             position="top-right"
             toastOptions={{
               style: {
-                background: "rgb(30 41 59)",
-                border: "1px solid rgb(51 65 85)",
-                color: "white",
+                background: "white",
+                border: "1px solid rgb(226 232 240)",
+                color: "rgb(15 23 42)",
               },
             }}
           />

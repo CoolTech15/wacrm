@@ -49,13 +49,13 @@ export function SessionsCard() {
 
   return (
     <>
-      <Card className="bg-slate-900/40 border-slate-800">
+      <Card className="bg-white border-slate-200 shadow-sm rounded-xl">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-white">
+          <CardTitle className="flex items-center gap-2 text-slate-900 font-semibold">
             <LogOut className="size-4 text-primary" />
             Active sessions
           </CardTitle>
-          <CardDescription className="text-slate-400">
+          <CardDescription className="text-slate-500">
             Sign out of every device where you&apos;re logged in — including
             this one. Useful if you lost a laptop or shared your password.
           </CardDescription>
@@ -65,6 +65,7 @@ export function SessionsCard() {
             type="button"
             variant="outline"
             onClick={() => setOpen(true)}
+            className="border-slate-200 text-slate-700 hover:bg-slate-50 bg-white shadow-xs"
           >
             <LogOut className="size-4" />
             Sign out of all devices
@@ -73,25 +74,26 @@ export function SessionsCard() {
       </Card>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent className="border-slate-200 bg-white text-slate-900">
           <DialogHeader>
-            <DialogTitle>Sign out everywhere?</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-slate-900 font-semibold">Sign out everywhere?</DialogTitle>
+            <DialogDescription className="text-slate-500">
               Every device logged into this account will be signed out and
               will need to log in again. You will be redirected to the login
               page.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
+          <DialogFooter className="bg-slate-50 border-t border-slate-100 p-4 -mx-6 -mb-6 rounded-b-lg flex gap-2 justify-end">
             <Button
               type="button"
-              variant="ghost"
+              variant="outline"
               onClick={() => setOpen(false)}
               disabled={signingOut}
+              className="border-slate-200 text-slate-700 hover:bg-slate-50 bg-white shadow-xs"
             >
               Cancel
             </Button>
-            <Button type="button" onClick={onConfirm} disabled={signingOut}>
+            <Button type="button" onClick={onConfirm} disabled={signingOut} className="bg-primary hover:bg-primary-hover text-white font-medium shadow-xs">
               {signingOut ? (
                 <>
                   <Loader2 className="size-4 animate-spin" />

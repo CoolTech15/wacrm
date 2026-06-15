@@ -44,10 +44,10 @@ export function ResponseTimeChart({
     })) ?? []
 
   return (
-    <section className="rounded-xl border border-slate-800 bg-slate-900">
-      <header className="flex items-center justify-between gap-3 border-b border-slate-800 px-5 py-4">
+    <section className="rounded-xl border border-slate-200 bg-white shadow-sm">
+      <header className="flex items-center justify-between gap-3 border-b border-slate-200 px-5 py-4">
         <div>
-          <h2 className="text-sm font-semibold text-white">
+          <h2 className="text-sm font-semibold text-slate-700">
             Average First Response Time
           </h2>
           <p className="mt-0.5 text-xs text-slate-500">
@@ -57,15 +57,15 @@ export function ResponseTimeChart({
         </div>
         <div className="flex items-center gap-3 text-right text-xs">
           {thresholdMinutes > 0 && (
-            <span className="rounded-full border border-rose-500/40 bg-rose-500/10 px-2 py-0.5 font-medium text-rose-300 tabular-nums">
+            <span className="rounded-full border border-rose-200 bg-rose-50 px-2 py-0.5 font-medium text-rose-700 tabular-nums">
               target {thresholdMinutes}m
             </span>
           )}
           {data && (data.thisWeekAvg != null || data.lastWeekAvg != null) && (
             <div>
-              <div className="text-slate-400">
+              <div className="text-slate-500">
                 This week:{' '}
-                <span className="font-medium text-white tabular-nums">
+                <span className="font-semibold text-slate-900 tabular-nums">
                   {fmt(data.thisWeekAvg)}
                 </span>
               </div>
@@ -92,9 +92,8 @@ export function ResponseTimeChart({
             data={chartData}
             index="day"
             categories={[CATEGORY]}
-            // 'violet' maps to Tailwind's `fill-violet-500` — matches
-            // the brand accent the hand-rolled bars used (#7c3aed).
-            colors={['violet']}
+            // 'indigo' maps to Tailwind's `fill-indigo-500`
+            colors={['indigo']}
             valueFormatter={(value) => `${value.toFixed(1)}m`}
             showLegend={false}
             yAxisWidth={48}

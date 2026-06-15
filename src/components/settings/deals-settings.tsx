@@ -68,13 +68,13 @@ export function DealsSettings() {
 
   return (
     <section className="mt-4 space-y-4">
-      <Card className="bg-slate-900 border-slate-700 ring-0 ring-transparent">
+      <Card className="bg-white border-slate-200 shadow-sm rounded-xl">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-white">
-            <Coins className="size-4 text-primary" />
+          <CardTitle className="flex items-center gap-2 text-slate-900 font-semibold">
+            <Coins className="size-4 text-indigo-600" />
             Default currency
           </CardTitle>
-          <CardDescription className="text-slate-400">
+          <CardDescription className="text-slate-500">
             New deals default to this currency, and pipeline and
             dashboard totals are shown in it. Existing deals keep the
             currency they were saved with.
@@ -82,15 +82,15 @@ export function DealsSettings() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-2 sm:max-w-xs">
-            <Label className="text-slate-300">Currency</Label>
+            <Label className="text-slate-700 font-semibold">Currency</Label>
             <select
               value={selected}
               onChange={(e) => setSelected(e.target.value)}
               disabled={!canEditSettings || profileLoading}
-              className="h-9 w-full rounded-lg border border-slate-700 bg-slate-800 px-2.5 text-sm text-white outline-none focus:border-primary focus:ring-1 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-60"
+              className="h-9 w-full rounded-lg border border-slate-200 bg-white px-2.5 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
             >
               {CURRENCIES.map((c) => (
-                <option key={c.code} value={c.code}>
+                <option key={c.code} value={c.code} className="text-slate-950">
                   {c.code} — {c.label}
                 </option>
               ))}
@@ -106,7 +106,7 @@ export function DealsSettings() {
             <Button
               onClick={handleSave}
               disabled={saving || !dirty}
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-xs"
             >
               {saving ? (
                 <>

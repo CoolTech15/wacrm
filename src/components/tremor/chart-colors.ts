@@ -20,6 +20,12 @@ export const chartColors = {
     fill: "fill-blue-500",
     text: "text-blue-500",
   },
+  indigo: {
+    bg: "bg-indigo-500",
+    stroke: "stroke-indigo-500",
+    fill: "fill-indigo-500",
+    text: "text-indigo-500",
+  },
   emerald: {
     bg: "bg-emerald-500",
     stroke: "stroke-emerald-500",

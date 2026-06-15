@@ -61,9 +61,9 @@ const STATUS_LABELS: Record<FlowRow["status"], string> = {
 };
 
 const STATUS_COLORS: Record<FlowRow["status"], string> = {
-  draft: "border-slate-700 bg-slate-800 text-slate-300",
-  active: "border-emerald-600/40 bg-emerald-500/10 text-emerald-300",
-  archived: "border-slate-700 bg-slate-800/50 text-slate-500",
+  draft: "border-slate-200 bg-slate-50 text-slate-600",
+  active: "border-emerald-200 bg-emerald-50 text-emerald-700",
+  archived: "border-slate-200 bg-slate-100/50 text-slate-500",
 };
 
 interface TemplateSummary {
@@ -194,7 +194,7 @@ export default function FlowsPage() {
   if (loading) {
     return (
       <div className="flex h-full items-center justify-center">
-        <Loader2 className="h-6 w-6 animate-spin text-slate-500" />
+        <Loader2 className="h-6 w-6 animate-spin text-indigo-600" />
       </div>
     );
   }
@@ -204,12 +204,9 @@ export default function FlowsPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-semibold text-white">Flows</h1>
-            <span className="inline-flex items-center rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-300">
-              Beta
-            </span>
+            <h1 className="text-2xl font-bold text-slate-900">Flows</h1>
           </div>
-          <p className="mt-1 text-sm text-slate-400">
+          <p className="mt-1 text-sm text-slate-500">
             Build branching, button-driven WhatsApp conversations. Useful for
             menus, FAQs, and triage before a human steps in.
           </p>
@@ -218,6 +215,7 @@ export default function FlowsPage() {
           canAct={canCreate}
           gateReason="create flows"
           onClick={() => setCreateOpen(true)}
+          className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-xs"
         >
           <Plus className="h-4 w-4" />
           New flow
@@ -247,17 +245,17 @@ export default function FlowsPage() {
             `sm:max-w-sm` baked into its default classes. Without the
             sm: prefix our override applies at base only and the
             sm-scoped 384px wins at every real desktop breakpoint. */}
-        <DialogContent className="sm:max-w-4xl bg-slate-900 text-slate-100">
+        <DialogContent className="sm:max-w-4xl bg-white text-slate-900 border-slate-200">
           <DialogHeader>
-            <DialogTitle>Create a new flow</DialogTitle>
-            <DialogDescription className="text-slate-400">
+            <DialogTitle className="text-slate-900 font-semibold">Create a new flow</DialogTitle>
+            <DialogDescription className="text-slate-500">
               Start from a template or build from scratch.
             </DialogDescription>
           </DialogHeader>
 
           {templates.length > 0 && (
             <div className="space-y-3">
-              <p className="text-xs uppercase tracking-wide text-slate-500">
+              <p className="text-xs uppercase tracking-wide text-slate-500 font-semibold">
                 Start from a template
               </p>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -269,16 +267,16 @@ export default function FlowsPage() {
                       type="button"
                       onClick={() => handleUseTemplate(t.slug)}
                       disabled={creating}
-                      className="flex flex-col gap-2.5 rounded-lg border border-slate-800 bg-slate-950 p-4 text-left transition-colors hover:border-primary/40 hover:bg-slate-800 disabled:opacity-50"
+                      className="flex flex-col gap-2.5 rounded-lg border border-slate-200 bg-white p-4 text-left transition-all hover:border-indigo-500/50 hover:bg-slate-50/50 disabled:opacity-50 shadow-xs"
                     >
-                      <Icon className="h-5 w-5 text-primary" />
-                      <span className="text-sm font-semibold text-white">
+                      <Icon className="h-5 w-5 text-indigo-600" />
+                      <span className="text-sm font-semibold text-slate-900">
                         {t.name}
                       </span>
-                      <span className="text-xs leading-relaxed text-slate-400">
+                      <span className="text-xs leading-relaxed text-slate-500">
                         {t.description}
                       </span>
-                      <span className="mt-auto border-t border-slate-800 pt-2 text-[11px] text-slate-500">
+                      <span className="mt-auto border-t border-slate-100 pt-2 text-[11px] text-slate-500">
                         {t.node_count} {t.node_count === 1 ? "node" : "nodes"}
                       </span>
                     </button>
@@ -288,15 +286,15 @@ export default function FlowsPage() {
             </div>
           )}
 
-          <div className="space-y-2 border-t border-slate-800 pt-4">
-            <p className="text-xs uppercase tracking-wide text-slate-500">
+          <div className="space-y-2 border-t border-slate-200 pt-4">
+            <p className="text-xs uppercase tracking-wide text-slate-500 font-semibold">
               Or start blank
             </p>
             <Input
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               placeholder="e.g. Welcome menu"
-              className="bg-slate-800"
+              className="bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-indigo-500"
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleCreate();
               }}
@@ -305,13 +303,14 @@ export default function FlowsPage() {
 
           <DialogFooter>
             <Button
-              variant="ghost"
+              variant="outline"
               onClick={() => setCreateOpen(false)}
               disabled={creating}
+              className="border-slate-200 text-slate-700 hover:bg-slate-50 bg-white"
             >
               Cancel
             </Button>
-            <Button onClick={handleCreate} disabled={!newName.trim() || creating}>
+            <Button onClick={handleCreate} disabled={!newName.trim() || creating} className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-xs">
               {creating && <Loader2 className="h-4 w-4 animate-spin" />}
               Create blank flow
             </Button>
@@ -330,14 +329,14 @@ function EmptyState({
   canCreate: boolean;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-slate-700 bg-slate-900/50 px-6 py-16 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-800">
+    <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-slate-200 bg-white px-6 py-16 text-center shadow-xs">
+      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100">
         <Workflow className="h-6 w-6 text-slate-500" />
       </div>
-      <h2 className="mt-4 text-base font-medium text-white">
+      <h2 className="mt-4 text-base font-semibold text-slate-900">
         No flows yet
       </h2>
-      <p className="mt-1 max-w-md text-sm text-slate-400">
+      <p className="mt-1 max-w-md text-sm text-slate-500">
         Build your first conversation — a welcome menu, an order lookup, an FAQ
         bot. Customers tap buttons; the bot routes them to the right answer (or
         the right agent).
@@ -346,7 +345,7 @@ function EmptyState({
         canAct={canCreate}
         gateReason="create flows"
         onClick={onCreate}
-        className="mt-5"
+        className="mt-5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-xs"
       >
         <Plus className="h-4 w-4" />
         Create your first flow
@@ -372,11 +371,11 @@ function FlowCard({
         ? Archive
         : PauseCircle;
   return (
-    <div className="flex flex-col rounded-lg border border-slate-800 bg-slate-900 p-4 transition-colors hover:border-slate-700">
+    <div className="flex flex-col rounded-lg border border-slate-200 bg-white p-4 transition-all shadow-sm hover:border-slate-300">
       <div className="flex items-start justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2">
-          <Workflow className="h-4 w-4 shrink-0 text-primary" />
-          <h3 className="truncate text-sm font-semibold text-white">
+          <Workflow className="h-4 w-4 shrink-0 text-indigo-600" />
+          <h3 className="truncate text-sm font-semibold text-slate-900">
             {flow.name}
           </h3>
         </div>
@@ -392,19 +391,19 @@ function FlowCard({
         </Badge>
       </div>
 
-      <p className="mt-2 line-clamp-2 text-xs text-slate-400">
+      <p className="mt-2 line-clamp-2 text-xs text-slate-500">
         {flow.description || triggerSummary}
       </p>
 
       <div className="mt-4 flex items-center gap-3 text-[11px] text-slate-500">
         <span className="inline-flex items-center gap-1">
-          <MessageSquare className="h-3 w-3" />
+          <MessageSquare className="h-3 w-3 text-slate-400" />
           {flow.execution_count} {flow.execution_count === 1 ? "run" : "runs"}
         </span>
       </div>
 
-      <div className="mt-4 flex items-center justify-end gap-2 border-t border-slate-800 pt-3">
-        <Button variant="ghost" size="sm" onClick={onEdit}>
+      <div className="mt-4 flex items-center justify-end gap-2 border-t border-slate-100 pt-3">
+        <Button variant="ghost" size="sm" onClick={onEdit} className="text-slate-700 hover:bg-slate-50 hover:text-slate-900">
           <Pencil className="h-3.5 w-3.5" />
           Edit
         </Button>
@@ -412,7 +411,7 @@ function FlowCard({
           variant="ghost"
           size="sm"
           onClick={onDelete}
-          className="text-red-400 hover:bg-red-500/10 hover:text-red-300"
+          className="text-rose-600 hover:bg-rose-50 hover:text-rose-700 font-medium"
         >
           <Trash2 className="h-3.5 w-3.5" />
           Delete

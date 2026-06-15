@@ -46,8 +46,8 @@ function StatusIcon({ status }: { status: Message["status"] }) {
 
 function MediaUnavailable({ label }: { label: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-lg bg-slate-700/40 px-3 py-2 text-xs text-slate-300">
-      <ImageOff className="h-4 w-4 shrink-0 text-slate-500" />
+    <div className="flex items-center gap-2 rounded-lg bg-slate-50 px-3 py-2 text-xs text-slate-500 border border-slate-200/50">
+      <ImageOff className="h-4 w-4 shrink-0 text-slate-400" />
       <span>{label} unavailable</span>
     </div>
   );
@@ -117,6 +117,7 @@ function MediaImage({ url, alt }: { url: string; alt: string }) {
 }
 
 function MessageContent({ message }: { message: Message }) {
+  const isAgent = message.sender_type === "agent" || message.sender_type === "bot";
   switch (message.content_type) {
     case "text":
       return (
@@ -181,9 +182,14 @@ function MessageContent({ message }: { message: Message }) {
           href={message.media_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 rounded-lg bg-slate-700/50 px-3 py-2 text-sm hover:bg-slate-700"
+          className={cn(
+            "flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors border",
+            isAgent
+              ? "bg-white/10 text-white border-white/10 hover:bg-white/20"
+              : "bg-slate-50 text-slate-700 border-slate-200/60 hover:bg-slate-100 hover:text-slate-900"
+          )}
         >
-          <FileText className="h-5 w-5 shrink-0 text-slate-400" />
+          <FileText className={cn("h-5 w-5 shrink-0", isAgent ? "text-white/80" : "text-slate-500")} />
           <span className="truncate">
             {message.content_text || "Document"}
           </span>
@@ -193,7 +199,12 @@ function MessageContent({ message }: { message: Message }) {
     case "template":
       return (
         <div>
-          <span className="mb-1 inline-flex items-center gap-1 rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-medium text-primary">
+          <span className={cn(
+            "mb-1 inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-medium",
+            isAgent
+              ? "bg-white/20 text-white"
+              : "bg-indigo-50 text-indigo-600 border border-indigo-100"
+          )}>
             <LayoutTemplate className="h-3 w-3" />
             Template
           </span>
@@ -208,7 +219,7 @@ function MessageContent({ message }: { message: Message }) {
     case "location":
       return (
         <div className="flex items-center gap-2 text-sm">
-          <MapPin className="h-4 w-4 shrink-0 text-slate-400" />
+          <MapPin className={cn("h-4 w-4 shrink-0", isAgent ? "text-white/80" : "text-slate-500")} />
           <span>{message.content_text || "Location shared"}</span>
         </div>
       );
@@ -221,7 +232,10 @@ function MessageContent({ message }: { message: Message }) {
       // tap rather than the customer typing the same words.
       return (
         <div className="flex flex-col gap-0.5">
-          <span className="inline-flex items-center gap-1 text-[10px] font-medium uppercase tracking-wide text-slate-400">
+          <span className={cn(
+            "inline-flex items-center gap-1 text-[10px] font-medium uppercase tracking-wide",
+            isAgent ? "text-white/60" : "text-slate-500"
+          )}>
             <CornerDownLeft className="h-3 w-3" />
             Button reply
           </span>
@@ -262,10 +276,10 @@ export function MessageBubble({
     >
       <div
         className={cn(
-          "relative rounded-2xl px-3 py-2",
+          "relative rounded-2xl px-3 py-2 border",
           isAgent
-            ? "rounded-br-md bg-primary text-primary-foreground"
-            : "rounded-bl-md bg-slate-800 text-slate-100",
+            ? "rounded-br-md bg-primary text-primary-foreground border-transparent shadow-xs"
+            : "rounded-bl-md bg-white text-slate-900 border-slate-200/80 shadow-xs",
         )}
       >
         {reply && (
@@ -278,7 +292,7 @@ export function MessageBubble({
             isAgent ? "justify-end" : "justify-start",
           )}
         >
-          <span className="text-[10px] text-white/60">{time}</span>
+          <span className={cn("text-[10px]", isAgent ? "text-white/60" : "text-slate-400")}>{time}</span>
           {isAgent && <StatusIcon status={message.status} />}
         </div>
       </div>

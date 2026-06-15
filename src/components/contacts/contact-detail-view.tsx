@@ -331,38 +331,38 @@ export function ContactDetailView({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="right"
-        className="bg-slate-900 border-slate-700 text-slate-200 sm:max-w-lg w-full p-0"
+        className="bg-white border-l border-slate-200 text-slate-900 sm:max-w-lg w-full p-0 shadow-xl"
       >
         {loading || !contact ? (
           <div className="flex items-center justify-center h-full">
-            <Loader2 className="size-6 animate-spin text-primary" />
+            <Loader2 className="size-6 animate-spin text-indigo-600" />
           </div>
         ) : (
           <div className="flex flex-col h-full">
             {/* Header */}
-            <SheetHeader className="p-4 border-b border-slate-700/50">
+            <SheetHeader className="p-4 border-b border-slate-200 bg-slate-50/50">
               <div className="flex items-center gap-3">
-                <Avatar className="size-12 bg-slate-800 border border-slate-700">
-                  <AvatarFallback className="bg-primary/10 text-primary text-sm font-medium">
+                <Avatar className="size-12 bg-slate-100 border border-slate-200">
+                  <AvatarFallback className="bg-indigo-50 text-indigo-600 text-sm font-semibold">
                     {getInitials(contact.name)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0">
-                  <SheetTitle className="text-white truncate">
+                  <SheetTitle className="text-slate-950 font-bold truncate">
                     {contact.name || 'Unknown'}
                   </SheetTitle>
-                  <SheetDescription className="text-slate-400 text-xs mt-0.5">
+                  <SheetDescription className="text-slate-500 text-xs mt-0.5">
                     Contact details
                   </SheetDescription>
-                  <div className="flex flex-wrap items-center gap-3 mt-1.5 text-xs text-slate-400">
+                  <div className="flex flex-wrap items-center gap-3 mt-1.5 text-xs text-slate-500">
                     <button
                       onClick={copyPhone}
-                      className="flex items-center gap-1 hover:text-primary transition-colors cursor-pointer"
+                      className="flex items-center gap-1 hover:text-indigo-600 transition-colors cursor-pointer"
                     >
                       <Phone className="size-3" />
                       {contact.phone}
                       {copiedPhone ? (
-                        <Check className="size-3 text-primary" />
+                        <Check className="size-3 text-indigo-600" />
                       ) : (
                         <Copy className="size-3" />
                       )}
@@ -386,34 +386,34 @@ export function ContactDetailView({
 
             {/* Tabs */}
             <Tabs defaultValue="details" className="flex-1 flex flex-col min-h-0">
-              <TabsList className="bg-slate-800/50 border-b border-slate-700 mx-4 mt-3">
+              <TabsList className="border border-slate-200/80 bg-slate-100/80 p-1 flex gap-1 rounded-lg mx-4 mt-3">
                 <TabsTrigger
                   value="details"
-                  className="data-active:bg-slate-800 data-active:text-primary text-slate-400"
+                  className="text-slate-600 hover:text-slate-900 hover:bg-slate-50/50 data-active:bg-white data-active:text-slate-900 data-active:shadow-xs transition-all duration-200"
                 >
                   Details
                 </TabsTrigger>
                 <TabsTrigger
                   value="tags"
-                  className="data-active:bg-slate-800 data-active:text-primary text-slate-400"
+                  className="text-slate-600 hover:text-slate-900 hover:bg-slate-50/50 data-active:bg-white data-active:text-slate-900 data-active:shadow-xs transition-all duration-200"
                 >
                   Tags
                 </TabsTrigger>
                 <TabsTrigger
                   value="notes"
-                  className="data-active:bg-slate-800 data-active:text-primary text-slate-400"
+                  className="text-slate-600 hover:text-slate-900 hover:bg-slate-50/50 data-active:bg-white data-active:text-slate-900 data-active:shadow-xs transition-all duration-200"
                 >
                   Notes
                 </TabsTrigger>
                 <TabsTrigger
                   value="custom"
-                  className="data-active:bg-slate-800 data-active:text-primary text-slate-400"
+                  className="text-slate-600 hover:text-slate-900 hover:bg-slate-50/50 data-active:bg-white data-active:text-slate-900 data-active:shadow-xs transition-all duration-200"
                 >
                   Custom Fields
                 </TabsTrigger>
                 <TabsTrigger
                   value="deals"
-                  className="data-active:bg-slate-800 data-active:text-primary text-slate-400"
+                  className="text-slate-600 hover:text-slate-900 hover:bg-slate-50/50 data-active:bg-white data-active:text-slate-900 data-active:shadow-xs transition-all duration-200"
                 >
                   Deals
                 </TabsTrigger>
@@ -423,43 +423,43 @@ export function ContactDetailView({
               <TabsContent value="details" className="flex-1 overflow-y-auto px-4 py-3">
                 <div className="space-y-3">
                   <div className="space-y-1.5">
-                    <Label className="text-slate-400 text-xs">Name</Label>
+                    <Label className="text-slate-700 text-xs font-semibold">Name</Label>
                     <Input
                       value={editName}
                       onChange={(e) => setEditName(e.target.value)}
-                      className="bg-slate-800 border-slate-700 text-white h-8 text-sm"
+                      className="bg-white border-slate-200 text-slate-900 h-8 text-sm placeholder:text-slate-400 focus:border-indigo-500 focus:ring-indigo-500"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label className="text-slate-400 text-xs">
-                      Phone <span className="text-red-400">*</span>
+                    <Label className="text-slate-700 text-xs font-semibold">
+                      Phone <span className="text-red-500">*</span>
                     </Label>
                     <Input
                       value={editPhone}
                       onChange={(e) => setEditPhone(e.target.value)}
-                      className="bg-slate-800 border-slate-700 text-white h-8 text-sm"
+                      className="bg-white border-slate-200 text-slate-900 h-8 text-sm placeholder:text-slate-400 focus:border-indigo-500 focus:ring-indigo-500"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label className="text-slate-400 text-xs">Email</Label>
+                    <Label className="text-slate-700 text-xs font-semibold">Email</Label>
                     <Input
                       value={editEmail}
                       onChange={(e) => setEditEmail(e.target.value)}
-                      className="bg-slate-800 border-slate-700 text-white h-8 text-sm"
+                      className="bg-white border-slate-200 text-slate-900 h-8 text-sm placeholder:text-slate-400 focus:border-indigo-500 focus:ring-indigo-500"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label className="text-slate-400 text-xs">Company</Label>
+                    <Label className="text-slate-700 text-xs font-semibold">Company</Label>
                     <Input
                       value={editCompany}
                       onChange={(e) => setEditCompany(e.target.value)}
-                      className="bg-slate-800 border-slate-700 text-white h-8 text-sm"
+                      className="bg-white border-slate-200 text-slate-900 h-8 text-sm placeholder:text-slate-400 focus:border-indigo-500 focus:ring-indigo-500"
                     />
                   </div>
                   <Button
                     onClick={saveDetails}
                     disabled={savingDetails}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground w-full"
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-xs w-full"
                     size="sm"
                   >
                     {savingDetails ? (
@@ -475,7 +475,7 @@ export function ContactDetailView({
               {/* Tags Tab */}
               <TabsContent value="tags" className="flex-1 overflow-y-auto px-4 py-3">
                 <div className="space-y-3">
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-slate-500">
                     Click a tag to add or remove it from this contact.
                   </p>
                   {allTags.length === 0 ? (
@@ -493,7 +493,7 @@ export function ContactDetailView({
                             disabled={savingTags}
                             className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition-all cursor-pointer ${
                               selected
-                                ? 'ring-2 ring-primary ring-offset-1 ring-offset-slate-900'
+                                ? 'ring-2 ring-indigo-600 ring-offset-1 ring-offset-white'
                                 : 'opacity-50 hover:opacity-80'
                             }`}
                             style={{
@@ -518,12 +518,12 @@ export function ContactDetailView({
                     value={newNote}
                     onChange={(e) => setNewNote(e.target.value)}
                     placeholder="Write a note..."
-                    className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 min-h-[60px] text-sm resize-none"
+                    className="bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 min-h-[60px] text-sm resize-none focus:border-indigo-500 focus:ring-indigo-500"
                   />
                   <Button
                     onClick={addNote}
                     disabled={!newNote.trim() || savingNote}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-xs"
                     size="sm"
                   >
                     {savingNote ? (
@@ -541,27 +541,27 @@ export function ContactDetailView({
                       <Loader2 className="size-5 animate-spin text-slate-500" />
                     </div>
                   ) : notes.length === 0 ? (
-                    <p className="text-sm text-slate-500 text-center py-8">
+                    <p className="text-sm text-slate-400 text-center py-8">
                       No notes yet.
                     </p>
                   ) : (
                     notes.map((note) => (
                       <div
                         key={note.id}
-                        className="rounded-lg bg-slate-800/50 border border-slate-700/50 p-3 group"
+                        className="rounded-lg bg-slate-50/70 border border-slate-200/60 p-3 group shadow-xs"
                       >
                         <div className="flex items-start justify-between gap-2">
-                          <p className="text-sm text-slate-300 whitespace-pre-wrap flex-1">
+                          <p className="text-sm text-slate-700 whitespace-pre-wrap flex-1">
                             {note.note_text}
                           </p>
                           <button
                             onClick={() => deleteNote(note.id)}
-                            className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-red-400 transition-all cursor-pointer shrink-0"
+                            className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-600 hover:bg-red-50 border border-transparent hover:border-slate-200 rounded-md p-1 transition-all cursor-pointer shrink-0"
                           >
                             <Trash2 className="size-3.5" />
                           </button>
                         </div>
-                        <p className="text-xs text-slate-500 mt-1.5">
+                        <p className="text-xs text-slate-400 mt-1.5">
                           {new Date(note.created_at).toLocaleDateString('en-US', {
                             month: 'short',
                             day: 'numeric',
@@ -583,14 +583,14 @@ export function ContactDetailView({
                     <Loader2 className="size-5 animate-spin text-slate-500" />
                   </div>
                 ) : customFields.length === 0 ? (
-                  <p className="text-sm text-slate-500 text-center py-8">
+                  <p className="text-sm text-slate-400 text-center py-8">
                     No custom fields defined. Create them in Settings.
                   </p>
                 ) : (
                   <div className="space-y-3">
                     {customFields.map((field) => (
                       <div key={field.id} className="space-y-1.5">
-                        <Label className="text-slate-400 text-xs capitalize">
+                        <Label className="text-slate-700 text-xs font-semibold capitalize">
                           {field.field_name}
                         </Label>
                         <Input
@@ -602,14 +602,14 @@ export function ContactDetailView({
                             }))
                           }
                           placeholder={`Enter ${field.field_name}...`}
-                          className="bg-slate-800 border-slate-700 text-white h-8 text-sm placeholder:text-slate-500"
+                          className="bg-white border-slate-200 text-slate-900 h-8 text-sm placeholder:text-slate-400 focus:border-indigo-500 focus:ring-indigo-500"
                         />
                       </div>
                     ))}
                     <Button
                       onClick={saveCustomFields}
                       disabled={savingCustom}
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground w-full"
+                      className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-xs w-full"
                       size="sm"
                     >
                       {savingCustom ? (
@@ -627,7 +627,7 @@ export function ContactDetailView({
               <TabsContent value="deals" className="flex-1 overflow-y-auto px-4 py-3">
                 {loadingDeals ? (
                   <div className="flex items-center justify-center py-8">
-                    <Loader2 className="size-5 animate-spin text-primary" />
+                    <Loader2 className="size-5 animate-spin text-indigo-600" />
                   </div>
                 ) : deals.length === 0 ? (
                   <p className="text-xs text-slate-500">No deals yet</p>
@@ -636,10 +636,10 @@ export function ContactDetailView({
                     {deals.map((deal) => (
                       <div
                         key={deal.id}
-                        className="rounded-lg border border-slate-700 bg-slate-800/50 p-3"
+                        className="rounded-lg border border-slate-200 bg-white shadow-xs p-3 hover:border-slate-300 transition-colors duration-200"
                       >
                         <div className="flex items-start justify-between gap-2">
-                          <p className="text-sm font-medium text-white">
+                          <p className="text-sm font-semibold text-slate-900">
                             {deal.title}
                           </p>
                           {deal.stage && (
@@ -654,9 +654,9 @@ export function ContactDetailView({
                             </span>
                           )}
                         </div>
-                        <div className="mt-1.5 flex items-center justify-between text-xs text-slate-400">
-                          <span className="flex items-center gap-1">
-                            <DollarSign className="size-3" />
+                        <div className="mt-1.5 flex items-center justify-between text-xs text-slate-500">
+                          <span className="flex items-center gap-1 text-slate-600 font-medium">
+                            <DollarSign className="size-3 text-slate-400" />
                             {formatCurrency(
                               deal.value ?? 0,
                               deal.currency || defaultCurrency,
@@ -666,8 +666,8 @@ export function ContactDetailView({
                             <span
                               className={
                                 deal.status === 'won'
-                                  ? 'text-primary'
-                                  : 'text-red-400'
+                                  ? 'text-emerald-600 font-semibold uppercase text-[9px] tracking-wide'
+                                  : 'text-rose-600 font-semibold uppercase text-[9px] tracking-wide'
                               }
                             >
                               {deal.status}

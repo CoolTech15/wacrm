@@ -7,9 +7,9 @@ import { Button } from '@/components/ui/button';
 import { Loader2, FileText, ArrowRight } from 'lucide-react';
 
 const categoryColors: Record<string, string> = {
-  Marketing: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
-  Utility: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  Authentication: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+  Marketing: 'bg-purple-50 text-purple-700 border-purple-200',
+  Utility: 'bg-blue-50 text-blue-700 border-blue-200',
+  Authentication: 'bg-orange-50 text-orange-700 border-orange-200',
 };
 
 interface Step1Props {
@@ -68,17 +68,17 @@ export function Step1ChooseTemplate({ selectedTemplate, onSelect, onNext, onBack
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-white">Choose a Template</h2>
-        <p className="mt-1 text-sm text-slate-400">
+        <h2 className="text-lg font-semibold text-slate-900">Choose a Template</h2>
+        <p className="mt-1 text-sm text-slate-500">
           Select an approved message template for your broadcast.
         </p>
       </div>
 
       {templates.length === 0 ? (
-        <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-slate-800 bg-slate-900/50">
-          <FileText className="mb-2 h-8 w-8 text-slate-600" />
-          <p className="text-sm text-slate-400">No templates available.</p>
-          <p className="mt-1 text-xs text-slate-500">Create a template in Settings first.</p>
+        <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-slate-200 bg-white">
+          <FileText className="mb-2 h-8 w-8 text-slate-400" />
+          <p className="text-sm text-slate-600">No templates available.</p>
+          <p className="mt-1 text-xs text-slate-400">Create a template in Settings first.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -92,19 +92,19 @@ export function Step1ChooseTemplate({ selectedTemplate, onSelect, onNext, onBack
                 onClick={() => onSelect(template)}
                 className={`flex flex-col gap-3 rounded-xl border p-4 text-left transition-all ${
                   isSelected
-                    ? 'border-primary bg-primary/5 ring-1 ring-primary/30'
-                    : 'border-slate-800 bg-slate-900/50 hover:border-slate-700 hover:bg-slate-900'
+                    ? 'border-primary bg-primary-soft ring-1 ring-primary/30'
+                    : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
                 }`}
               >
                 <div className="flex items-start justify-between">
-                  <h3 className="text-sm font-medium text-white">{template.name}</h3>
+                  <h3 className="text-sm font-semibold text-slate-900">{template.name}</h3>
                   <span
                     className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium ${catColor}`}
                   >
                     {template.category}
                   </span>
                 </div>
-                <p className="line-clamp-3 text-xs text-slate-400">{template.body_text}</p>
+                <p className="line-clamp-3 text-xs text-slate-600">{template.body_text}</p>
                 <div className="flex items-center gap-2 text-[10px] text-slate-500">
                   <span>{template.language ?? 'en_US'}</span>
                   {/* Status is omitted on purpose — every template
@@ -117,8 +117,8 @@ export function Step1ChooseTemplate({ selectedTemplate, onSelect, onNext, onBack
         </div>
       )}
 
-      <div className="flex items-center justify-between border-t border-slate-800 pt-4">
-        <Button variant="outline" onClick={onBack} className="border-slate-700 text-slate-300">
+      <div className="flex items-center justify-between border-t border-slate-200 pt-4">
+        <Button variant="outline" onClick={onBack} className="border-slate-200 text-slate-700 hover:bg-slate-50">
           Back
         </Button>
         <Button

@@ -31,11 +31,11 @@ interface KindTheme {
 }
 
 const KIND_THEME: Record<ActivityKind, KindTheme> = {
-  message: { icon: MessageSquare, badge: 'bg-blue-500/10 text-blue-400' },
-  contact: { icon: UserPlus, badge: 'bg-primary/10 text-primary' },
-  deal: { icon: Briefcase, badge: 'bg-primary/10 text-primary' },
-  broadcast: { icon: Radio, badge: 'bg-amber-500/10 text-amber-400' },
-  automation: { icon: Zap, badge: 'bg-rose-500/10 text-rose-400' },
+  message: { icon: MessageSquare, badge: 'bg-blue-50 text-blue-600 border border-blue-200' },
+  contact: { icon: UserPlus, badge: 'bg-indigo-50 text-indigo-600 border border-indigo-200' },
+  deal: { icon: Briefcase, badge: 'bg-emerald-50 text-emerald-600 border border-emerald-200' },
+  broadcast: { icon: Radio, badge: 'bg-amber-50 text-amber-600 border border-amber-200' },
+  automation: { icon: Zap, badge: 'bg-rose-50 text-rose-600 border border-rose-200' },
 }
 
 export function ActivityFeed({ items, loading }: ActivityFeedProps) {
@@ -54,12 +54,12 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
     i === 0 || totalLoaded > PAGE_SIZES[i - 1]
 
   return (
-    <section className="rounded-xl border border-slate-800 bg-slate-900">
-      <header className="flex items-center justify-between border-b border-slate-800 px-5 py-4">
-        <h2 className="text-sm font-semibold text-white">Recent Activity</h2>
+    <section className="rounded-xl border border-slate-200 bg-white shadow-sm">
+      <header className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+        <h2 className="text-sm font-semibold text-slate-700">Recent Activity</h2>
         <Link
           href="/inbox"
-          className="text-xs font-medium text-primary hover:text-primary/80"
+          className="text-xs font-medium text-indigo-600 hover:text-indigo-700"
         >
           View all →
         </Link>
@@ -81,13 +81,13 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
         </div>
       ) : (
         <>
-          <ul className="divide-y divide-slate-800">
+          <ul className="divide-y divide-slate-100">
             {visible.map((it, i) => {
               const theme = KIND_THEME[it.kind]
               const Icon = theme.icon
               // Alternating row background for scanability — dark-theme
               // translation of the spec's white / #f9fafb stripes.
-              const stripe = i % 2 === 0 ? 'bg-transparent' : 'bg-slate-900/40'
+              const stripe = i % 2 === 0 ? 'bg-transparent' : 'bg-slate-50/50'
               const row = (
                 <div className="flex items-center gap-3 px-5 py-2.5">
                   <span
@@ -98,7 +98,7 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
                   >
                     <Icon className="h-3.5 w-3.5" />
                   </span>
-                  <span className="min-w-0 flex-1 truncate text-sm text-slate-200">
+                  <span className="min-w-0 flex-1 truncate text-sm text-slate-700">
                     {it.text}
                   </span>
                   <span className="flex-shrink-0 text-xs text-slate-500 tabular-nums">
@@ -107,7 +107,7 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
                 </div>
               )
               return (
-                <li key={it.id} className={cn(stripe, 'transition-colors hover:bg-slate-800/40')}>
+                <li key={it.id} className={cn(stripe, 'transition-colors hover:bg-slate-50')}>
                   {it.href ? (
                     <Link href={it.href} className="block">
                       {row}
@@ -119,7 +119,7 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
               )
             })}
           </ul>
-          <footer className="flex items-center justify-between border-t border-slate-800 px-5 py-3 text-xs">
+          <footer className="flex items-center justify-between border-t border-slate-200 px-5 py-3 text-xs">
             <span className="text-slate-500 tabular-nums">
               Showing {visible.length} of {totalLoaded}
               {totalLoaded === 50 ? '+' : ''}
@@ -137,8 +137,8 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
                     className={cn(
                       'rounded-md px-2 py-1 font-medium tabular-nums transition-colors',
                       pageSize === size
-                        ? 'bg-slate-700 text-white'
-                        : 'text-slate-400 hover:bg-slate-800 hover:text-white',
+                        ? 'bg-slate-200 text-slate-800'
+                        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
                       disabled && 'cursor-not-allowed opacity-40 hover:bg-transparent hover:text-slate-400',
                     )}
                   >

@@ -220,10 +220,10 @@ export default function JoinPage() {
   // ----- Loading state (peek pending OR auth not yet resolved) -----
   if (peek === null || authedUserId === undefined) {
     return (
-      <Card className="w-full max-w-md border-slate-800 bg-slate-900">
+      <Card className="w-full max-w-md border-slate-200 bg-white shadow-md rounded-xl">
         <CardContent className="flex flex-col items-center gap-3 py-12">
           <Loader2 className="size-6 animate-spin text-primary" />
-          <p className="text-sm text-slate-400">Verifying invitation…</p>
+          <p className="text-sm text-slate-500">Verifying invitation…</p>
         </CardContent>
       </Card>
     );
@@ -233,36 +233,29 @@ export default function JoinPage() {
   if (!peek.ok) {
     const copy = FAIL_COPY[peek.reason];
     return (
-      <Card className="w-full max-w-md border-slate-800 bg-slate-900">
+      <Card className="w-full max-w-md border-slate-200 bg-white shadow-md rounded-xl">
         <CardHeader className="items-center text-center">
-          <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10">
-            <MailX className="h-6 w-6 text-red-400" />
+          <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-red-50">
+            <MailX className="h-6 w-6 text-red-600" />
           </div>
-          <CardTitle className="text-xl text-white">{copy.title}</CardTitle>
-          <CardDescription className="text-slate-400">
+          <CardTitle className="text-xl text-slate-900 font-bold">{copy.title}</CardTitle>
+          <CardDescription className="text-slate-500">
             {copy.body}
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
-          {/* For server_error the failure is transient — the network
-              flapped or the peek endpoint hiccupped. Try-again is
-              the right primary action; the "create account" /
-              "sign in" links stay as secondary options. Other
-              failure reasons (not_found / used / expired) are
-              terminal for this token, so no retry — just the
-              signup/sign-in escape hatches. */}
           {peek.reason === 'server_error' ? (
             <>
               <Button
                 onClick={loadPeekAndAuth}
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                className="w-full bg-primary hover:bg-primary-hover text-white font-medium shadow-xs"
               >
                 Try again
               </Button>
               <Link href="/signup">
                 <Button
                   variant="outline"
-                  className="w-full border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+                  className="w-full border-slate-200 text-slate-700 hover:bg-slate-50 bg-white shadow-xs"
                 >
                   Create a new account instead
                 </Button>
@@ -271,14 +264,14 @@ export default function JoinPage() {
           ) : (
             <>
               <Link href="/signup">
-                <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                <Button className="w-full bg-primary hover:bg-primary-hover text-white font-medium shadow-xs">
                   Create a new account instead
                 </Button>
               </Link>
               <Link href="/login">
                 <Button
                   variant="outline"
-                  className="w-full border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+                  className="w-full border-slate-200 text-slate-700 hover:bg-slate-50 bg-white shadow-xs"
                 >
                   Sign in
                 </Button>
@@ -293,16 +286,16 @@ export default function JoinPage() {
   // ----- Peek OK -----
   const inviteHeader = (
     <CardHeader className="items-center text-center">
-      <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+      <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-soft">
         <UsersRound className="h-6 w-6 text-primary" />
       </div>
-      <CardTitle className="text-xl text-white">
+      <CardTitle className="text-xl text-slate-900 font-bold">
         You&apos;re invited to{' '}
         <span className="text-primary">{peek.account_name}</span>
       </CardTitle>
-      <CardDescription className="text-slate-400">
+      <CardDescription className="text-slate-500">
         You&apos;ll join as{' '}
-        <span className="inline-flex items-center gap-1 text-white">
+        <span className="inline-flex items-center gap-1 text-slate-800 font-medium">
           <ShieldCheck className="size-3.5 text-primary" />
           {ROLE_LABEL[peek.role]}
         </span>
@@ -321,13 +314,13 @@ export default function JoinPage() {
   if (authedUserId) {
     return (
       <>
-        <Card className="w-full max-w-md border-slate-800 bg-slate-900">
+        <Card className="w-full max-w-md border-slate-200 bg-white shadow-md rounded-xl">
           {inviteHeader}
           <CardContent className="flex flex-col gap-3">
             <Button
               onClick={handleAccept}
               disabled={accepting}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+              className="w-full bg-primary hover:bg-primary-hover text-white font-medium shadow-xs"
             >
               {accepting ? (
                 <>
@@ -343,53 +336,50 @@ export default function JoinPage() {
             </Button>
             <p className="text-center text-xs text-slate-500">
               Accepting moves your login into{' '}
-              <span className="text-slate-400">{peek.account_name}</span>. Your
+              <span className="text-slate-700 font-medium">{peek.account_name}</span>. Your
               empty personal account from signup will be cleaned up.
             </p>
           </CardContent>
         </Card>
 
-        {/* Conflict modal — opens when the redeem endpoint returns 409
-            (caller already in a shared account or has domain data).
-            Blocks the flow until the user picks a recovery action so
-            they aren't stuck retrying an inevitable failure. */}
+        {/* Conflict modal */}
         <Dialog
           open={conflictMessage !== null}
           onOpenChange={(open) => {
             if (!open) setConflictMessage(null);
           }}
         >
-          <DialogContent className="bg-slate-900 border-slate-700 sm:max-w-md">
+          <DialogContent className="bg-white border-slate-200 sm:max-w-md text-slate-900">
             <DialogHeader>
-              <DialogTitle className="flex items-center gap-2 text-white">
-                <AlertTriangle className="size-4 text-amber-400" />
+              <DialogTitle className="flex items-center gap-2 text-slate-950 font-bold">
+                <AlertTriangle className="size-4 text-amber-500" />
                 Can&apos;t join {peek.account_name} with this account
               </DialogTitle>
-              <DialogDescription className="text-slate-400">
+              <DialogDescription className="text-slate-500">
                 {conflictMessage}
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-2 py-2 text-xs text-slate-500">
               <p>
                 To join{' '}
-                <span className="text-slate-300">{peek.account_name}</span>,
+                <span className="text-slate-700 font-medium">{peek.account_name}</span>,
                 sign out and sign up again with a different email address.
                 The invite link stays valid as long as it hasn&apos;t
                 expired.
               </p>
             </div>
-            <DialogFooter className="bg-slate-900 border-slate-700">
+            <DialogFooter className="bg-slate-50 border-t border-slate-100 p-4 -mx-6 -mb-6 rounded-b-lg flex gap-2 justify-end">
               <Button
                 variant="outline"
                 onClick={() => setConflictMessage(null)}
-                className="border-slate-700 text-slate-300 hover:bg-slate-800"
+                className="border-slate-200 text-slate-700 hover:bg-slate-50 bg-white shadow-xs"
               >
                 Stay signed in
               </Button>
               <Button
                 onClick={handleSignOutAndRetry}
                 disabled={signingOut}
-                className="bg-primary text-primary-foreground hover:bg-primary/90"
+                className="bg-primary hover:bg-primary-hover text-white font-medium shadow-xs"
               >
                 {signingOut ? (
                   <>
@@ -409,18 +399,18 @@ export default function JoinPage() {
 
   // ----- Not authed: prompt to sign up or sign in -----
   return (
-    <Card className="w-full max-w-md border-slate-800 bg-slate-900">
+    <Card className="w-full max-w-md border-slate-200 bg-white shadow-md rounded-xl">
       {inviteHeader}
       <CardContent className="flex flex-col gap-2">
         <Link href={`/signup?invite=${encodeURIComponent(token!)}`}>
-          <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+          <Button className="w-full bg-primary hover:bg-primary-hover text-white font-medium shadow-xs">
             Create account &amp; join
           </Button>
         </Link>
         <Link href={`/login?invite=${encodeURIComponent(token!)}`}>
           <Button
             variant="outline"
-            className="w-full border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+            className="w-full border-slate-200 text-slate-700 hover:bg-slate-50 bg-white shadow-xs"
           >
             I already have an account
           </Button>

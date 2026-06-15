@@ -43,10 +43,10 @@ function RateCell({
   const pct = percent(value, total);
   return (
     <div className="flex items-center gap-2">
-      <span className="w-10 text-right text-xs tabular-nums text-slate-300">
+      <span className="w-10 text-right text-xs tabular-nums text-slate-600 font-mono">
         {pct}%
       </span>
-      <div className="h-1.5 w-20 overflow-hidden rounded-full bg-slate-800">
+      <div className="h-1.5 w-20 overflow-hidden rounded-full bg-slate-200">
         <div
           className={`h-1.5 rounded-full ${color}`}
           style={{ width: `${pct}%` }}
@@ -179,8 +179,8 @@ export default function BroadcastsPage() {
 
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Broadcasts</h1>
-          <p className="mt-1 text-sm text-slate-400">
+          <h1 className="text-2xl font-bold text-slate-900">Broadcasts</h1>
+          <p className="mt-1 text-sm text-slate-500">
             Send bulk messages to your contacts using approved templates.
           </p>
         </div>
@@ -188,7 +188,7 @@ export default function BroadcastsPage() {
           canAct={canCreate}
           gateReason="create broadcasts"
           onClick={() => router.push('/broadcasts/new')}
-          className="bg-primary text-primary-foreground hover:bg-primary/90"
+          className="bg-indigo-600 text-white hover:bg-indigo-700 shadow-xs"
         >
           <Plus className="h-4 w-4" />
           New Broadcast
@@ -196,36 +196,36 @@ export default function BroadcastsPage() {
       </div>
 
       {broadcasts.length === 0 ? (
-        <div className="flex h-64 flex-col items-center justify-center rounded-xl border border-slate-800 bg-slate-900">
-          <Radio className="mb-3 h-10 w-10 text-slate-600" />
-          <p className="text-sm font-medium text-white">No broadcasts yet</p>
-          <p className="mt-1 text-xs text-slate-400">
+        <div className="flex h-64 flex-col items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm">
+          <Radio className="mb-3 h-10 w-10 text-slate-400" />
+          <p className="text-sm font-semibold text-slate-800">No broadcasts yet</p>
+          <p className="mt-1 text-xs text-slate-500">
             Create your first broadcast to reach your contacts at scale.
           </p>
           <GatedButton
             canAct={canCreate}
             gateReason="create broadcasts"
             onClick={() => router.push('/broadcasts/new')}
-            className="mt-4 bg-primary text-primary-foreground hover:bg-primary/90"
+            className="mt-4 bg-indigo-600 text-white hover:bg-indigo-700 shadow-xs"
           >
             <Plus className="h-4 w-4" />
             New Broadcast
           </GatedButton>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900">
+        <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
           <Table>
             <TableHeader>
-              <TableRow className="border-slate-800 hover:bg-transparent">
-                <TableHead className="text-slate-400">Name</TableHead>
-                <TableHead className="hidden text-slate-400 md:table-cell">Template</TableHead>
-                <TableHead className="hidden text-right text-slate-400 sm:table-cell">
+              <TableRow className="border-slate-100 hover:bg-transparent bg-slate-50/50">
+                <TableHead className="text-slate-500 font-semibold">Name</TableHead>
+                <TableHead className="hidden text-slate-500 font-semibold md:table-cell">Template</TableHead>
+                <TableHead className="hidden text-right text-slate-500 font-semibold sm:table-cell">
                   Recipients
                 </TableHead>
-                <TableHead className="hidden text-slate-400 lg:table-cell">Delivery</TableHead>
-                <TableHead className="hidden text-slate-400 lg:table-cell">Read</TableHead>
-                <TableHead className="text-slate-400">Status</TableHead>
-                <TableHead className="hidden text-slate-400 sm:table-cell">Date</TableHead>
+                <TableHead className="hidden text-slate-500 font-semibold lg:table-cell">Delivery</TableHead>
+                <TableHead className="hidden text-slate-500 font-semibold lg:table-cell">Read</TableHead>
+                <TableHead className="text-slate-500 font-semibold">Status</TableHead>
+                <TableHead className="hidden text-slate-500 font-semibold sm:table-cell">Date</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -234,23 +234,23 @@ export default function BroadcastsPage() {
                 return (
                   <TableRow
                     key={broadcast.id}
-                    className="cursor-pointer border-slate-800 hover:bg-slate-800/50"
+                    className="cursor-pointer border-slate-100 hover:bg-slate-50/50"
                     onClick={() => router.push(`/broadcasts/${broadcast.id}`)}
                   >
-                    <TableCell className="font-medium text-white">
+                    <TableCell className="font-semibold text-slate-900">
                       {broadcast.name}
                     </TableCell>
-                    <TableCell className="hidden text-slate-300 md:table-cell">
+                    <TableCell className="hidden text-slate-700 md:table-cell">
                       {broadcast.template_name}
                     </TableCell>
-                    <TableCell className="hidden text-right text-slate-300 tabular-nums sm:table-cell">
+                    <TableCell className="hidden text-right text-slate-700 tabular-nums sm:table-cell font-mono">
                       {broadcast.total_recipients}
                     </TableCell>
                     <TableCell className="hidden lg:table-cell">
                       <RateCell
                         value={broadcast.delivered_count}
                         total={broadcast.total_recipients}
-                        color="bg-primary"
+                        color="bg-indigo-600"
                       />
                     </TableCell>
                     <TableCell className="hidden lg:table-cell">
@@ -273,7 +273,7 @@ export default function BroadcastsPage() {
                         {status.label}
                       </span>
                     </TableCell>
-                    <TableCell className="hidden text-slate-400 sm:table-cell">
+                    <TableCell className="hidden text-slate-500 sm:table-cell font-mono">
                       {new Date(broadcast.created_at).toLocaleDateString()}
                     </TableCell>
                   </TableRow>
